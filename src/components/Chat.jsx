@@ -49,7 +49,8 @@ export default function Chat({ userType }) {
       lastMessage: 'Super ! À demain pour la session',
       time: '10:30',
       unread: 0,
-      online: true
+      online: true,
+      avatar: 'https://i.pravatar.cc/150?img=5'
     },
     {
       id: 2,
@@ -58,16 +59,18 @@ export default function Chat({ userType }) {
       lastMessage: 'Merci pour ton aide !',
       time: 'Hier',
       unread: 2,
-      online: false
+      online: false,
+      avatar: 'https://i.pravatar.cc/150?img=12'
     },
-    { 
-      id: 3, 
-      name: 'Sophie Dubois', 
+    {
+      id: 3,
+      name: 'Sophie Dubois',
       type: 'tutor',
       lastMessage: 'N\'oublie pas de réviser le chapitre 3',
       time: '15 Nov',
       unread: 0,
-      online: true
+      online: true,
+      avatar: 'https://i.pravatar.cc/150?img=9'
     },
   ];
 
@@ -122,15 +125,26 @@ export default function Chat({ userType }) {
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold text-gray-900">Messages</h1>
-            <button
-              onClick={() => setShowNewMessageModal(true)}
-              className="w-8 h-8 flex items-center justify-center bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-              title="Nouveau contact"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-            </button>
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setShowNewMessageModal(true)}
+                className="w-8 h-8 flex items-center justify-center bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                title="Ajouter un contact"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+              </button>
+              <button
+                onClick={() => alert('Sélectionnez un contact puis cliquez ici pour le supprimer')}
+                className="w-8 h-8 flex items-center justify-center bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                title="Supprimer un contact"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
+                </svg>
+              </button>
+            </div>
           </div>
           <button
             onClick={() => setShowNewMessageModal(true)}
@@ -159,11 +173,11 @@ export default function Chat({ userType }) {
               <div className="flex items-start space-x-3">
                 {/* Avatar */}
                 <div className="relative flex-shrink-0">
-                  <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                    <span className="text-indigo-600 font-semibold">
-                      {contact.name.split(' ').map(n => n[0]).join('')}
-                    </span>
-                  </div>
+                  <img
+                    src={contact.avatar}
+                    alt={contact.name}
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
                   {contact.online && (
                     <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                   )}
@@ -209,11 +223,11 @@ export default function Chat({ userType }) {
                 </button>
                 <div className="flex items-center space-x-3">
                   <div className="relative">
-                    <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                      <span className="text-indigo-600 font-semibold text-sm">
-                        {selectedContactData.name.split(' ').map(n => n[0]).join('')}
-                      </span>
-                    </div>
+                    <img
+                      src={selectedContactData.avatar}
+                      alt={selectedContactData.name}
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
                     {selectedContactData.online && (
                       <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                     )}
@@ -243,11 +257,11 @@ export default function Chat({ userType }) {
                   <div className={`flex items-end space-x-2 max-w-md ${message.sender === 'me' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                     {/* Avatar */}
                     {message.sender === 'other' && (
-                      <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-indigo-600 font-semibold text-xs">
-                          {message.senderName.split(' ').map(n => n[0]).join('')}
-                        </span>
-                      </div>
+                      <img
+                        src={selectedContactData.avatar}
+                        alt={message.senderName}
+                        className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                      />
                     )}
 
                     {/* Bulle de message */}
