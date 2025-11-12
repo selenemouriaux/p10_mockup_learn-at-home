@@ -234,6 +234,16 @@ export default function Tasks({ userType }) {
 
                     {/* Tags et infos */}
                     <div className="flex flex-wrap items-center gap-2">
+                      {/* Badge de statut */}
+                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                        task.status === 'inProgress'
+                          ? 'bg-blue-100 text-blue-700'
+                          : task.status === 'done'
+                          ? 'bg-green-100 text-green-700'
+                          : 'bg-gray-100 text-gray-700'
+                      }`}>
+                        {task.status === 'inProgress' ? 'En cours' : task.status === 'done' ? 'Terminé' : 'À faire'}
+                      </span>
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-${getPriorityColor(task.priority)}-100 text-${getPriorityColor(task.priority)}-700`}>
                         Priorité {getPriorityLabel(task.priority)}
                       </span>
